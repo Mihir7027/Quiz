@@ -16,7 +16,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name="com.quiz.view.activities.MainActivity" />
-        <activity android:name="com.quiz.view.activities.SplashActivity"
+        <activity
+            android:name="com.quiz.view.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

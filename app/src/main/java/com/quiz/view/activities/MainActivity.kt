@@ -2,17 +2,13 @@ package com.quiz.view.activities
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import quiz.R
-import android.os.Looper
-
-import android.widget.Toast
-
-
 
 
 class MainActivity : AppCompatActivity() {

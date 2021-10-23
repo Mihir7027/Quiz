@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -14,6 +14,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,8 +32,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:maxLines="2"
+                    android:layout_weight="1.045"
+                    android:gravity="center"
+                    android:padding="4dp"
                     android:text="@string/question_title" />
 
                 <View
@@ -43,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="center"
+                    android:padding="4dp"
                     android:text="@string/correct_answer" />
 
                 <View
@@ -57,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="center"
+                    android:padding="4dp"
                     android:text="@string/given_answer" />
 
                 <View
@@ -69,11 +77,17 @@
                     style="@style/text_14_bold_primary"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.55"
                     android:gravity="center"
+                    android:padding="4dp"
                     android:text="@string/correct_or_not" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvQuestionSummary"
@@ -82,7 +96,14 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/row_answer_list" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimary" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvSummary"
@@ -90,89 +111,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
                 android:background="@color/colorWhite"
-                android:padding="4dp"
+                android:gravity="center"
+                android:padding="10dp"
                 android:text="@string/summary" />
 
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-
-                    style="@style/text_14_bold_primary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/total_marks" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvTotalMarks"
-                    style="@style/text_14_bold_primary"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="4dp"
-                    android:layout_weight="1"
-                    android:text="@string/_15" />
-            </LinearLayout>
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
-
-                    style="@style/text_14_bold_primary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/obtained_marks" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvObtainedMarks"
-                    style="@style/text_14_bold_primary"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="4dp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-
-                    style="@style/text_14_bold_primary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/skipped_questions" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvSkipped"
-                    style="@style/text_14_bold_primary"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="4dp"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textview.MaterialTextView
-
-                    style="@style/text_14_bold_primary"
+                    style="@style/text_18_bold_primary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -180,18 +137,127 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvPercentage"
-                    style="@style/text_14_bold_primary"
-                    android:layout_width="0dp"
+                    style="@style/text_16_bold_black"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="4dp"
-                    android:layout_weight="1" />
+                    android:layout_marginStart="4dp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textview.MaterialTextView
+
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/total_marks" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvTotalMarks"
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/_15" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/obtained_marks" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvObtainedMarks"
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textview.MaterialTextView
+
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/skipped_questions" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvSkipped"
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/wrong_questions" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvWrong"
+                        style="@style/text_14_bold_primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="4dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 
 </LinearLayout>

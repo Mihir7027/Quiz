@@ -9,4 +9,4 @@ data class QuestionSummaryModel(
     val givenAnswer: String,
     val correctAnswer: String,
     val isCorrect: Boolean
-): Parcelable
+) : Parcelable

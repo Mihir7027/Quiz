@@ -28,6 +28,7 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="text_14_regular_black" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/color_on_surface</item>
@@ -37,6 +38,12 @@
     <style name="text_16_bold_primary" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_16_bold_black" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textStyle">bold</item>
     </style>
 

@@ -20,9 +20,9 @@ class QuestionSummaryAdapter(
     inner class ViewHolder(itemView: View) :
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         fun bind(
-                result: QuestionSummaryModel?,
-                itemViewType: Int,
-                adapterViewClickListener: AdapterViewClickListener<QuestionSummaryModel>?
+            result: QuestionSummaryModel?,
+            itemViewType: Int,
+            adapterViewClickListener: AdapterViewClickListener<QuestionSummaryModel>?
         ) {
             setDataOnAdapterView(itemView, result, adapterViewClickListener, adapterPosition)
         }
@@ -39,19 +39,27 @@ class QuestionSummaryAdapter(
     }
 
     fun setDataOnAdapterView(
-            itemView: View,
-            result: QuestionSummaryModel?,
-            adapterViewClickListener: AdapterViewClickListener<QuestionSummaryModel>?,
-            adapterPosition: Int
+        itemView: View,
+        result: QuestionSummaryModel?,
+        adapterViewClickListener: AdapterViewClickListener<QuestionSummaryModel>?,
+        adapterPosition: Int
     ) {
-        itemView.tvQuestion.text = result?.question
+        "${(adapterPosition + 1)}) ${result?.question}".also { itemView.tvQuestion.text = it }
         itemView.tvCorrectAnswer.text = result?.correctAnswer
         itemView.tvGivenAnswer.text = result?.givenAnswer
 
-        if (result?.isCorrect == true){
+        if (adapterPosition % 2 == 0) {
+            itemView.llMain.setBackgroundColor(
+                ContextCompat.getColor(
+                    itemView.context,
+                    R.color.colorWhite
+                )
+            )
+        }
+        if (result?.isCorrect == true) {
             itemView.tvYesNo.text = itemView.context.getString(R.string.yes)
             itemView.tvYesNo.setTextColor(ContextCompat.getColor(itemView.context, R.color.green));
-        }else{
+        } else {
             itemView.tvYesNo.text = itemView.context.getString(R.string.no)
             itemView.tvYesNo.setTextColor(ContextCompat.getColor(itemView.context, R.color.red));
         }

@@ -1,25 +1,18 @@
 package com.quiz.view.fragments
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.quiz.model.models.QuestionSummaryModel
 import com.quiz.utils.AndroidUtils.Companion.showAlertDialog
 import com.quiz.utils.AndroidUtils.Companion.twoDigitAfterDecimal
-import java.util.*
-import android.os.CountDownTimer
-import android.os.Parcelable
-import android.util.Log
-import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.question_fragment.*
-import com.quiz.model.models.QuestionSummaryModel
 import quiz.R
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
-import java.io.Serializable
-
-
-
-
 
 class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListener {
 
@@ -28,8 +21,8 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
     private var totalQuestion: Int = 15
     private var completedQuestion: Int = 1
     private var operator: String = ""
-    private var firstNumber: Double = 0.0
-    private var secondNumber: Double = 0.0
+    private var firstNumber: Int = 0
+    private var secondNumber: Int = 0
 
     private var selectedAnswer: Double? = 0.0
 
@@ -45,7 +38,6 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
         super.onViewCreated(view, savedInstanceState)
         btnNext.setOnClickListener(this)
         btnSubmit.setOnClickListener(this)
-
         init()
     }
 
@@ -56,11 +48,13 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
         setAnswer()
         startTimer()
 
-        tvQuestion.text =
-            getString(R.string.find_the_correct_solution_for ) + " "+firstNumber.toString() + " " + operator + " " + secondNumber.toString()
-        //+ "    ---" + correctAnswer
+        "$completedQuestion)  ${getString(R.string.find_the_correct_solution_for)} $firstNumber $operator $secondNumber".also {
+            tvQuestion.text = it
+        }
+
     }
 
+    //to generate random operator for equation
     private fun generateRandomOperator(): String {
         var operator = ""
         val min = 1
@@ -80,6 +74,7 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
         return operator
     }
 
+    //To generate random number for question and 3 random answer
     private fun generateRandomNumberOne(): Double {
         val min = 1
         val max = 500
@@ -91,7 +86,6 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
         when (view!!.id) {
             R.id.btnNext -> {
                 if (isValid()) {
-
                     setQandAList()
                     completedQuestion++
                     if (completedQuestion == totalQuestion) {
@@ -100,7 +94,7 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
                     }
                     tvQuestionCount.text = completedQuestion.toString()
                     checkAnswer()
-                       } else {
+                } else {
                     showAlertDialog(requireActivity(), getString(R.string.select_any_one_answer))
                 }
             }
@@ -110,27 +104,33 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
                 setQandAList()
                 val args = Bundle()
                 args.putParcelableArrayList("answerList", questionAnswerList)
-                findNavController().navigate(R.id.action_listFragment_to_detailFragment,args)
+                findNavController().navigate(R.id.action_listFragment_to_detailFragment, args)
             }
         }
     }
 
-    private fun setQandAList(){
+    //This function is used for Add question and answer into arraylist for summary
+    private fun setQandAList() {
         val isAnswerRight = correctAnswer == selectedAnswer
         var selectedAns = ""
-        if (selectedAnswer == 0.0){
+        if (selectedAnswer == 0.0) {
             selectedAns = "N/A"
-        }else{
+        } else {
             selectedAns = selectedAnswer.toString()
         }
 
-        val questionSummaryModel = QuestionSummaryModel(tvQuestion.text.toString().trim(),selectedAns,correctAnswer.toString(),isAnswerRight)
+        var question: String = tvQuestion.text.toString().trim().substring(34) + " = " + "?"
+
+        val questionSummaryModel =
+            QuestionSummaryModel(question, selectedAns, correctAnswer.toString(), isAnswerRight)
         questionAnswerList.add(questionSummaryModel)
     }
 
+    //this function is used for shuffle answer arraylist
+    //so we cant get correct answer everytime on same position
     private fun setAnswer() {
-        var answerArray: ArrayList<Double> = ArrayList()
-        var shuffledArray: List<Double> = ArrayList()
+        var answerArray: ArrayList<Any> = ArrayList()
+        var shuffledArray: List<Any> = ArrayList()
         answerArray.add(correctAnswer!!)
         answerArray.add(randomAnswerOne)
         answerArray.add(randomAnswerTwo)
@@ -142,9 +142,12 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
         rbAnswerFour.text = shuffledArray[3].toString()
     }
 
+    //this function is used for generate new random question with correct answer
+    //and if right answer is already in generated 3 random answer then change that random answer.
+    //so we cant get same answer twice in option.
     private fun generateQuestionAndCorrectAnswer() {
-        firstNumber = twoDigitAfterDecimal(generateRandomNumberOne()).toDouble()
-        secondNumber = twoDigitAfterDecimal(generateRandomNumberOne()).toDouble()
+        firstNumber = twoDigitAfterDecimal(generateRandomNumberOne()).toDouble().toInt()
+        secondNumber = twoDigitAfterDecimal(generateRandomNumberOne()).toDouble().toInt()
         operator = generateRandomOperator()
         correctAnswer = twoDigitAfterDecimal(calculateAnswer()).toDouble()
 
@@ -164,28 +167,31 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
             randomAnswerThree = twoDigitAfterDecimal(generateRandomNumberOne()).toDouble()
         }
         setAnswer()
-        tvQuestion.text =  getString(R.string.find_the_correct_solution_for )  + " "+firstNumber.toString() + " " + operator + " " + secondNumber.toString()
-        //+ "    ---" + correctAnswer
+        "$completedQuestion)  ${getString(R.string.find_the_correct_solution_for)} $firstNumber $operator $secondNumber".also {
+            tvQuestion.text = it
+        }
 
     }
 
+    //This function will return correct answer
     private fun calculateAnswer(): Double {
         val str: String = operator.replace(" ", "")
         var answer: Double = 0.0
         if (str == "*") {
-            answer = firstNumber * secondNumber
+            answer = (firstNumber * secondNumber).toDouble()
         } else if (str == "+") {
-            answer = firstNumber + secondNumber
+            answer = (firstNumber + secondNumber).toDouble()
         } else if (str == "-") {
-            answer = firstNumber - secondNumber
+            answer = (firstNumber - secondNumber).toDouble()
         } else if (str == "/") {
-            answer = firstNumber / secondNumber
+            answer = (firstNumber / secondNumber).toDouble()
         } else if (str == "%") {
-            answer = firstNumber % secondNumber
+            answer = (firstNumber % secondNumber).toDouble()
         }
         return answer
     }
 
+    //This function is used for check selected answer
     private fun checkAnswer() {
         if (rbAnswerOne.isChecked) {
             selectedAnswer = rbAnswerOne.text.toString().trim().toDouble()
@@ -196,7 +202,6 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
         } else if (rbAnswerFour.isChecked) {
             selectedAnswer = rbAnswerFour.text.toString().trim().toDouble()
         }
-
         radioGroup.clearCheck()
         selectedAnswer = 0.0
         startTimer()
@@ -210,24 +215,28 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
         countDownTimer.cancel()
     }
 
-    override fun onStop() {
-        super.onStop()
-        countDownTimer.cancel()
-    }
 
+    //after successful generate question 30 second timer will start
     private fun startTimer() {
-        if (isRunning){
+        if (isRunning) {
             countDownTimer.cancel()
         }
         countDownTimer = object : CountDownTimer(31000, 1000) {
             override fun onFinish() {
-                if (completedQuestion <15){
+                if (completedQuestion < 15) {
                     val isAnswerRight = correctAnswer == selectedAnswer
-                    var selectedAns:String = "N/A"
-                    if (selectedAnswer != 0.0 ){
+                    var selectedAns: String = "N/A"
+                    if (selectedAnswer != 0.0) {
                         selectedAns = selectedAnswer.toString()
                     }
-                    val questionSummaryModel = QuestionSummaryModel(tvQuestion.text.toString().trim(),selectedAns.toString(),correctAnswer.toString(),isAnswerRight)
+                    var question: String =
+                        tvQuestion.text.toString().trim().substring(34) + " = " + "?"
+                    val questionSummaryModel = QuestionSummaryModel(
+                        question,
+                        selectedAns.toString(),
+                        correctAnswer.toString(),
+                        isAnswerRight
+                    )
                     questionAnswerList.add(questionSummaryModel)
 
                     completedQuestion++
@@ -240,21 +249,22 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
                     checkAnswer()
                     generateQuestionAndCorrectAnswer()
                     setAnswer()
-                    tvQuestion.text = getString(R.string.find_the_correct_solution_for ) + " " +firstNumber.toString() + " " + operator + " " + secondNumber.toString()
-                    //+ "    ---" + correctAnswer
-                }else if (completedQuestion == 15){
+                    "$completedQuestion)  ${getString(R.string.find_the_correct_solution_for)} $firstNumber $operator $secondNumber".also {
+                        tvQuestion.text = it
+                    }
+                } else if (completedQuestion == 15) {
                     isValid()
                     setQandAList()
                     val args = Bundle()
                     args.putParcelableArrayList("answerList", questionAnswerList)
-                    findNavController().navigate(R.id.action_listFragment_to_detailFragment,args)
+                    findNavController().navigate(R.id.action_listFragment_to_detailFragment, args)
                 }
 
             }
 
             override fun onTick(millis: Long) {
                 val seconds: Long = TimeUnit.MILLISECONDS.toSeconds(millis)
-                if (tvTime != null){
+                if (tvTime != null) {
                     tvTime.text = seconds.toString()
 
                 }
@@ -265,21 +275,22 @@ class QuestionFragment : Fragment(R.layout.question_fragment), View.OnClickListe
     }
 
 
+    //for validation of answer
     private fun isValid(): Boolean {
         var isValid: Boolean = false
         if (rbAnswerOne.isChecked) {
             selectedAnswer = rbAnswerOne.text.toString().toDouble()
             isValid = true
-        }else if (rbAnswerTwo.isChecked){
+        } else if (rbAnswerTwo.isChecked) {
             selectedAnswer = rbAnswerTwo.text.toString().toDouble()
             isValid = true
-        }else if (rbAnswerThree.isChecked){
+        } else if (rbAnswerThree.isChecked) {
             selectedAnswer = rbAnswerThree.text.toString().toDouble()
             isValid = true
-        }else if (rbAnswerFour.isChecked){
+        } else if (rbAnswerFour.isChecked) {
             selectedAnswer = rbAnswerFour.text.toString().toDouble()
             isValid = true
-        }else{
+        } else {
             selectedAnswer = 0.0
             isValid = false
         }

@@ -19,14 +19,15 @@
     <string name="summary">Summary</string>
     <string name="total_marks">Total marks :</string>
     <string name="obtained_marks">Obtained Marks :</string>
-    <string name="percentage">Percentage :</string>
+    <string name="percentage">Percentage</string>
     <string name="_15">15</string>
     <string name="skipped_questions">Skipped Questions :</string>
+    <string name="wrong_questions">Wrong Questions :</string>
     <string name="exit_msg">Please click BACK again to exit</string>
     <string name="note">Note</string>
     <string name="before_you_start">Before You Start !</string>
     <string name="_15_multiple_questions">✵ 15 multiple questions.</string>
     <string name="save_and_next">✵ Click Next button to submit your answer.</string>
     <string name="_30_seconds_per_question">✵ 30 Seconds per question.</string>
-    <string name="check_your_score_after_submit_all_answer">✵ You can check and compare your score after submit all answer.</string>
+    <string name="check_your_score_after_submit_all_answer">✵ You can check and compare your answer after submitting all answer.</string>
 </resources>

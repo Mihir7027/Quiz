@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="10dp"
-    android:layout_height="match_parent" >
-
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTitle"
         style="@style/text_18_bold_primary"
         android:layout_width="match_parent"
-        android:padding="10dp"
-        android:gravity="center"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
         android:text="@string/before_you_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvConditionOne"
         style="@style/text_14_regular_black"
         android:layout_width="match_parent"
-        android:gravity="start"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:text="@string/_15_multiple_questions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvConditionTwo"
 
         style="@style/text_14_regular_black"
         android:layout_width="match_parent"
-        android:gravity="start"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:text="@string/save_and_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvConditionOne" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvConditionThree"
 
         style="@style/text_14_regular_black"
         android:layout_width="match_parent"
-        android:gravity="start"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:text="@string/_30_seconds_per_question"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvConditionTwo" />
+
     <androidx.appcompat.widget.AppCompatTextView
         style="@style/text_14_regular_black"
         android:layout_width="match_parent"
-        android:gravity="start"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:text="@string/check_your_score_after_submit_all_answer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

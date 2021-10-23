@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.24512820512820513" />
+        <entry key="app/src/main/res/layout/question_fragment.xml" value="0.1265625" />
+        <entry key="app/src/main/res/layout/row_answer_list.xml" value="0.24512820512820513" />
+        <entry key="app/src/main/res/layout/start_fragment.xml" value="0.24512820512820513" />
+        <entry key="app/src/main/res/layout/summary_fragment.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>
